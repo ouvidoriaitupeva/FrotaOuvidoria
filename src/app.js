@@ -1,7 +1,7 @@
 import { supabase, supabaseConfigured } from './supabase';
 import './styles.css';
 
-const STORAGE_KEY = 'frotapref-demo-v1';
+const STORAGE_KEY = 'frotaouvidoria-demo-v1';
 const TABLES = {
   diario: 'diario_bordo',
   checklist: 'checklists',
@@ -303,7 +303,7 @@ function shell() {
   const active = state.view;
   return `<div class="app-shell">
     <aside class="sidebar" id="sidebar">
-      <div class="brand"><div class="brand-mark">${icon('car', 22)}</div><div><strong>Frota<span>Pref</span></strong><small>controle oficial</small></div></div>
+      <div class="brand"><div class="brand-mark">${icon('car', 22)}</div><div><strong>Frota<span>Ouvidoria</span></strong><small>controle oficial</small></div></div>
       <div class="vehicle-mini"><span class="eyebrow">VEÍCULO ATIVO</span><strong>${esc(vehicle)}</strong><span>${esc(state.config.placa || 'Placa não cadastrada')}</span></div>
       <nav class="nav-list" aria-label="Navegação principal">${navItems().map(([id, label, ico]) => `<a href="#/${id === 'dashboard' ? '' : id}" class="nav-item ${active === id ? 'active' : ''}" data-nav="${id}">${icon(ico, 18)}<span>${label}</span>${id === 'multas' && pendingFines() ? `<b class="nav-count">${pendingFines()}</b>` : ''}</a>`).join('')}</nav>
       <div class="sidebar-footer"><div class="connection-dot ${state.mode === 'supabase' ? 'online' : 'local'}"></div><span>${state.mode === 'supabase' ? 'Supabase conectado' : 'Modo demonstração'}</span></div>
@@ -437,7 +437,7 @@ function emptyState(title, text, module = '') {
 }
 
 function renderAuth() {
-  return `<div class="auth-page"><div class="auth-decoration"><div class="auth-note"><span class="eyebrow">REGISTRO OFICIAL</span><h1>Controle claro para uma rotina em movimento.</h1><p>Diário de bordo, checklist, combustível e despesas organizados em um só lugar.</p><div class="auth-stamp">${icon('car', 18)} FROTAPREF</div></div></div><div class="auth-card"><div class="brand auth-brand"><div class="brand-mark">${icon('car', 22)}</div><div><strong>Frota<span>Pref</span></strong><small>controle oficial</small></div></div>${state.notice ? `<div class="notice notice-${state.notice.tone}">${icon(state.notice.tone === 'success' ? 'check' : 'alert', 15)}<span>${esc(state.notice.message)}</span></div>` : ''}${state.authMode === 'login' ? `<span class="eyebrow">ACESSO RESTRITO</span><h2>Entrar no sistema</h2><p class="auth-helper">Use o e-mail e a senha cadastrados no Supabase.</p>` : `<span class="eyebrow">PRIMEIRO ACESSO</span><h2>Criar minha conta</h2><p class="auth-helper">Cadastre seu e-mail para começar a usar o controle.</p>`}<form id="auth-form"><label class="field"><span>E-mail</span><input name="email" type="email" required autocomplete="email" placeholder="voce@prefeitura.gov.br" /></label><label class="field"><span>Senha</span><input name="password" type="password" required minlength="6" autocomplete="current-password" placeholder="Mínimo de 6 caracteres" /></label><button class="button button-primary button-wide" type="submit">${state.authMode === 'login' ? 'Entrar' : 'Criar conta'} ${icon('arrow', 16)}</button></form><button class="auth-switch" data-action="toggle-auth">${state.authMode === 'login' ? 'Ainda não tenho uma conta' : 'Já tenho uma conta'}</button><div class="auth-security">${icon('check', 15)} Seus dados ficam associados à sua conta no Supabase.</div></div></div>`;
+  return `<div class="auth-page"><div class="auth-decoration"><div class="auth-note"><span class="eyebrow">REGISTRO OFICIAL</span><h1>Controle claro para uma rotina em movimento.</h1><p>Diário de bordo, checklist, combustível e despesas organizados em um só lugar.</p><div class="auth-stamp">${icon('car', 18)} FROTAOUVIDORIA</div></div></div><div class="auth-card"><div class="brand auth-brand"><div class="brand-mark">${icon('car', 22)}</div><div><strong>Frota<span>Ouvidoria</span></strong><small>controle oficial</small></div></div>${state.notice ? `<div class="notice notice-${state.notice.tone}">${icon(state.notice.tone === 'success' ? 'check' : 'alert', 15)}<span>${esc(state.notice.message)}</span></div>` : ''}${state.authMode === 'login' ? `<span class="eyebrow">ACESSO RESTRITO</span><h2>Entrar no sistema</h2><p class="auth-helper">Use o e-mail e a senha cadastrados no Supabase.</p>` : `<span class="eyebrow">PRIMEIRO ACESSO</span><h2>Criar minha conta</h2><p class="auth-helper">Cadastre seu e-mail para começar a usar o controle.</p>`}<form id="auth-form"><label class="field"><span>E-mail</span><input name="email" type="email" required autocomplete="email" placeholder="voce@prefeitura.gov.br" /></label><label class="field"><span>Senha</span><input name="password" type="password" required minlength="6" autocomplete="current-password" placeholder="Mínimo de 6 caracteres" /></label><button class="button button-primary button-wide" type="submit">${state.authMode === 'login' ? 'Entrar' : 'Criar conta'} ${icon('arrow', 16)}</button></form><button class="auth-switch" data-action="toggle-auth">${state.authMode === 'login' ? 'Ainda não tenho uma conta' : 'Já tenho uma conta'}</button><div class="auth-security">${icon('check', 15)} Seus dados ficam associados à sua conta no Supabase.</div></div></div>`;
 }
 
 function renderModal() {
@@ -459,11 +459,11 @@ function fieldHtml(field, record) {
 }
 
 function downloadJson() {
-  const payload = { app: 'FrotaPref', version: 1, exported_at: new Date().toISOString(), config: state.config, records: state.records };
+  const payload = { app: 'FrotaOuvidoria', version: 1, exported_at: new Date().toISOString(), config: state.config, records: state.records };
   const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
   const link = document.createElement('a');
   link.href = URL.createObjectURL(blob);
-  link.download = `backup-frotapref-${today()}.json`;
+  link.download = `backup-frotaouvidoria-${today()}.json`;
   link.click();
   URL.revokeObjectURL(link.href);
   setNotice('Backup JSON exportado com sucesso.');
@@ -483,7 +483,7 @@ async function importJson(file) {
     render();
     setNotice('Backup importado com sucesso.');
   } catch {
-    setNotice('Não foi possível importar: confira se o arquivo é um backup FrotaPref válido.', 'error');
+    setNotice('Não foi possível importar: confira se o arquivo é um backup FrotaOuvidoria válido.', 'error');
   }
 }
 
