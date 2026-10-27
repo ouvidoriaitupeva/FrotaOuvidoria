@@ -1,0 +1,12 @@
+{
+  "routes": [
+    { "path": "/", "title": "Painel do veículo" },
+    { "path": "/diario", "title": "Diário de bordo" },
+    { "path": "/checklist", "title": "Checklist" },
+    { "path": "/abastecimentos", "title": "Abastecimentos" },
+    { "path": "/pedagios", "title": "Pedágios" },
+    { "path": "/multas", "title": "Multas" },
+    { "path": "/relatorios", "title": "Relatórios" },
+    { "path": "/configuracoes", "title": "Configurações" }
+  ]
+}
